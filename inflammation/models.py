@@ -23,7 +23,7 @@ def daily_mean(data):
     Calculate the daily mean of a 2d inflammation data array.
 
     :param data: list
-    :return: mean of data
+    :returns: mean of data
     """
     return np.mean(data, axis=0)
 
@@ -33,7 +33,7 @@ def daily_max(data):
     Calculate the daily max of a 2d inflammation data array.
 
     :param data: list
-    :return: max of data
+    :returns: max of data
     """
     return np.max(data, axis=0)
 
@@ -43,6 +43,6 @@ def daily_min(data):
     Calculate the daily min of a 2d inflammation data array.
 
     :param data: list
-    :return: min of data
+    :returns: min of data
     """
     return np.min(data, axis=0)
