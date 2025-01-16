@@ -15,7 +15,7 @@ def load_csv(filename):
 
     :param filename: Filename of CSV to load
     """
-    return np.loadtxt(fname=filename, delimiter=',')
+    return np.loadtxt(fname=filename, delimiter=",")
 
 
 def daily_mean(data):
@@ -26,7 +26,7 @@ def daily_mean(data):
     :returns: mean of data
     """
     if np.any(data < 0):
-        raise ValueError('Cannot use negative numbers')
+        raise ValueError("Cannot use negative numbers")
     return np.mean(data, axis=0)
 
 
@@ -48,6 +48,7 @@ def daily_min(data):
     :returns: min of data
     """
     return np.min(data, axis=0)
+
 
 def patient_normalise(data):
     """Normalise patient data from a 2d inflammation data array"""
