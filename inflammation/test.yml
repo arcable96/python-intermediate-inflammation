@@ -1,0 +1,12 @@
+name : Kilimanjaro
+height_metres :
+  - value : 5892
+    units : metres
+scaled_by :
+  - name : Hans Meyer
+    year : 1958
+  - name : A. N. Other
+    year : 1996
+information_about : | 
+  Mt. Kilimanjaro is a really tall mountain
+  

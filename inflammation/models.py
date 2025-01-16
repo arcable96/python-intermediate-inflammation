@@ -25,6 +25,8 @@ def daily_mean(data):
     :param data: list
     :returns: mean of data
     """
+    if np.any(data < 0):
+        raise ValueError('Cannot use negative numbers')
     return np.mean(data, axis=0)
 
 
@@ -46,3 +48,8 @@ def daily_min(data):
     :returns: min of data
     """
     return np.min(data, axis=0)
+
+def patient_normalise(data):
+    """Normalise patient data from a 2d inflammation data array"""
+    maxi = daily_max(data)
+    return data / maxi

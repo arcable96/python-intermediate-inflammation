@@ -7,6 +7,7 @@ import pytest
 from inflammation.models import daily_mean
 from inflammation.models import daily_max
 from inflammation.models import daily_min
+from inflammation.models import patient_normalise
 
 @pytest.mark.parametrize(
     "test, expected",
@@ -43,4 +44,16 @@ def test_wrong_input():
     """Test for TypeError"""
     with pytest.raises(TypeError):
         error_expected = daily_mean([['Hello', 'there'], ['General', 'Kenobi']])
+    with pytest.raises(ValueError):
+        error_expected = daily_mean(np.array([[-1, 0], [0, -1]]))
+
+@pytest.mark.parametrize(
+    "test, expected",
+    [
+        ([ [1, 2], [2, 4], [3, 6] ], [ [1/3, 1/3], [2/3, 2/3], [1, 1] ]),
+    ])
+
+def test_patient_normalise(test, expected):
+    """Test mean function works for array of zeroes and positive integers."""
+    npt.assert_allclose(patient_normalise(np.array(test)), np.array(expected), rtol=1e-2, atol=1e-2)
 
