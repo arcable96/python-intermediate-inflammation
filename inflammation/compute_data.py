@@ -3,24 +3,47 @@
 
 import glob
 import os
+from fileinput import filename
+
 import numpy as np
 
 from inflammation import models, views
 
-def load_inflammation_data(data_dir, filename="inflammation*.csv"):
-    """Load data from a directory
+class JSONDataSource:
+    def __init__(self, data_dir):
+        self.data_dir = data_dir
 
-    data_dir: directory name
-    filename: name of file stored in directory
-    """
-    data_file_paths = glob.glob(os.path.join(data_dir, filename))
-    if len(data_file_paths) == 0:
-        raise ValueError(f"No inflammation data CSV files found in path {data_dir}")
-    data = map(models.load_csv, data_file_paths)
-    data = list(data)
-    return data
+    def load_inflammation_data(self):
+        """Load data from a directory
 
-def analyse_data(data_dir,filename="inflammation*.csv"):
+        data_dir: directory name
+        filename: name of file stored in directory
+        """
+        data_file_paths = glob.glob(os.path.join(self.data_dir, "inflammation*.json"))
+        if len(data_file_paths) == 0:
+            raise ValueError(f"No inflammation data JSON files found in path {self.data_dir}")
+        data = map(models.load_json, data_file_paths)
+        data = list(data)
+        return data
+
+class CSVDataSource:
+    def __init__(self, data_dir):
+        self.data_dir = data_dir
+
+    def load_inflammation_data(self):
+        """Load data from a directory
+
+        data_dir: directory name
+        filename: name of file stored in directory
+        """
+        data_file_paths = glob.glob(os.path.join(self.data_dir, "inflammation*.csv"))
+        if len(data_file_paths) == 0:
+            raise ValueError(f"No inflammation data CSV files found in path {self.data_dir}")
+        data = map(models.load_csv, data_file_paths)
+        data = list(data)
+        return data
+
+def analyse_data(data_source):
     """Calculates the standard deviation by day between datasets.
 
     Gets all the inflammation data from CSV files within a directory,
@@ -31,7 +54,7 @@ def analyse_data(data_dir,filename="inflammation*.csv"):
     filename: names of file. Default is "inflammation*.csv" (accesses all "inflammation.csv" files in directory)
     """
 
-    data=load_inflammation_data(data_dir,filename)
+    data=data_source.load_inflammation_data()
 
     means_by_day_matrix = np.stack(list(models.daily_mean(data)))
 
@@ -40,6 +63,5 @@ def analyse_data(data_dir,filename="inflammation*.csv"):
     graph_data = {
         'standard deviation by day': daily_standard_deviation,
     }
-    views.visualize(graph_data)
 
-    return means_by_day_matrix
+    views.visualize(graph_data)
