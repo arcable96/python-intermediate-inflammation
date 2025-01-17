@@ -2,7 +2,7 @@
 
 The Model layer is responsible for the 'business logic' part of the software.
 
-Patients' data is held in an inflammation table (2D array) where each row contains 
+Patients' data is held in an inflammation table (2d array) where each row contains
 inflammation data for a single patient taken over a number of days 
 and each column represents a single day across all patients.
 """
@@ -26,7 +26,8 @@ def load_csv(filename):
 
 def daily_mean(data):
     """Calculate the daily mean of a 2d inflammation data array."""
-    return np.mean(data, axis=1)
+    return np.max(data, axis=0)
+
 
 
 def daily_max(data):
