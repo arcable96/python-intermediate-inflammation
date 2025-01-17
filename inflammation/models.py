@@ -9,6 +9,12 @@ and each column represents a single day across all patients.
 
 import numpy as np
 
+def load_json(filename):
+    """Load a Numpy array from a JSON
+
+    :param filename: Filename of JSON to load
+    """
+    return np.loadtxt(fname=filename, delimiter=',')
 
 def load_csv(filename):  
     """Load a Numpy array from a CSV
@@ -21,6 +27,7 @@ def load_csv(filename):
 def daily_mean(data):
     """Calculate the daily mean of a 2d inflammation data array."""
     return np.max(data, axis=0)
+
 
 
 def daily_max(data):
