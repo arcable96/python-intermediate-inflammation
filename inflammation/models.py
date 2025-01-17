@@ -20,7 +20,7 @@ def load_csv(filename):
 
 def daily_mean(data):
     """Calculate the daily mean of a 2d inflammation data array."""
-    return np.mean(data, axis=0)
+    return np.max(data, axis=0)
 
 
 def daily_max(data):
